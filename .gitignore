@@ -11,6 +11,9 @@
 *.cb2
 .*.lb
 
-# vimtex
+# Vimtex
 *.fdb_latexmk
 *.synctex.gz
+
+# Editor
+.vscode

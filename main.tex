@@ -1,0 +1,43 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[ruled]{algorithm2e}
+\usepackage{aligned-overset}
+\usepackage{alltt}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{csquotes}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{stmaryrd}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{float}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1 \delimsize\vert #2}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{corollary}[thm]{Corollary}
+\newtheorem{lemma}[thm]{Lemma}
+
+\begin{document}
+\title{Notes on Introduction to Quantum Computing}
+\author{Leon Windheuser}
+
+\maketitle
+
+\include{chapters/chapter_02.tex}
+\include{chapters/chapter_03.tex}
+
+\end{document}
