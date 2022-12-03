@@ -328,3 +328,147 @@ $\alpha, \beta, \gamma, \delta \in \mathbb{R}$ such that
 \end{equation}
 
 \subsection{Multiple qubits}
+
+So far: Single qubits, superposition of basis states $\ket{0}$ and $\ket{1}$.
+For two qubits, this generalizes to $\{\ket{00}, \ket{01}, \ket{10}, \ket{11}\}$. \newline
+
+General two-qubit state:
+\begin{equation}
+    \ket{\psi} = \alpha_{00} \ket{00} + \alpha_{01} \ket{01} + \alpha_{10} \ket{10} + \alpha_{11} \ket{11}
+\end{equation}
+with amplitudes $\alpha_{ij} \in \mathbb{C}$ such that
+\begin{equation}
+    \abs{\alpha_{00}}^2  + \abs{\alpha_{01}}^2  + \abs{\alpha_{10}}^2  + \abs{\alpha_{11}}^2 = 1 
+    \quad \text{(normalization).}
+\end{equation}
+
+Can identify the basis states with unit vectors:
+
+\begin{equation}
+    \ket{00} = \begin{pmatrix*}
+        1 \\ 0 \\ 0 \\ 0
+    \end{pmatrix*} \quad
+    \ket{01} = \begin{pmatrix*}
+        0 \\ 1 \\ 0 \\ 0
+    \end{pmatrix*} \quad
+    \ket{10} = \begin{pmatrix*}
+        0 \\ 0 \\ 1 \\ 0
+    \end{pmatrix*} \quad
+    \ket{11} = \begin{pmatrix*}
+        0 \\ 0 \\ 0 \\ 1
+    \end{pmatrix*} \quad
+\end{equation}
+
+Thus: 
+\begin{equation}
+    \ket{\psi} = \begin{pmatrix*}
+        \alpha_{00} \\ \alpha_{01} \\ \alpha_{10} \\ \alpha_{11} 
+    \end{pmatrix*} \in \mathbb{C}^4
+\end{equation}
+
+What happens if we measure only one qubit of a two-qubit state?
+Say we measure the first qubit: Obtain result
+\begin{align*}
+    0 &\quad \text{with probability} \quad \abs{\alpha_{00}}^2 + \abs{\alpha_{01}}^2 \\ 
+    1 &\quad \text{with probability} \quad \abs{\alpha_{10}}^2 + \abs{\alpha_{11}}^2
+\end{align*}
+
+Wavefunction directly after measurement:
+\begin{align*}
+    &\text{if measured 0:} \quad \ket{\psi'} 
+        = \frac{\alpha_{00}\ket{00} + \alpha_{01}\ket{01}}{\sqrt{\abs{\alpha_{00}}^2 + \abs{\alpha_{01}}^2}} \\
+    &\text{if measured 1:} \quad \ket{\psi'} 
+        = \frac{\alpha_{10}\ket{10} + \alpha_{11}\ket{11}}{\sqrt{\abs{\alpha_{10}}^2 + \abs{\alpha_{11}}^2}} \\
+\end{align*}
+
+
+Mathematical formalism for constructing two qubit states: Tensor product of vector space. \newline
+Can combine two (arbitrary) vector spaces $V$ and $W$ to form the \underline{tensor product}
+$V \otimes W$. \\
+The elements of $V \otimes W$ are linear combinations of "tensor products" 
+$\ket{v} {\color{blue} \otimes} \ket{w}$ consisting of elements $\ket{v} \in V$ and  $\ket{w} \in W$. \\
+
+Example: Let $V = \mathbb{C}^2$ and $W = \mathbb{C}^2$ be the single qubit spaces with basis
+$\{\ket{0}, \ket{1}\}$, then
+
+\begin{equation*}
+    \underbrace{\frac{1}{2} \ket{0} {\color{blue} \otimes} \ket{0}}_{=\ket{00}} + 
+    \underbrace{\frac{5i}{7} \ket{1} {\color{blue} \otimes} \ket{0}}_{=\ket{10}} 
+    \in V \otimes W
+\end{equation*}
+
+Let $\{\ket{i}_v : i = 1, ... ,m\}$ be a basis of of V, and 
+let $\{\ket{j}_w : j = 1, ... ,n\}$ be a basis of of W, then
+
+\begin{equation*}
+    \{\ket{i}_v {\color{blue}\otimes} \ket{j}_w : i = 1,...,m, j = 1,...,n \}    
+\end{equation*}
+is a basis of $V {\color{blue} \otimes} W$.
+In particular, $dim(V \otimes W) = dim(V) \cdot dim(W)$.\\ 
+Note: $\ket{i}_v {\color{blue}\otimes} \ket{j}_w$ is also written as $\ket{ij}$. \\
+
+Basic properties of tensor product:
+\begin{itemize}
+    \item $\forall \ket{v} \in V, \ket{w} \in W \land \alpha \in \mathbb{C}:$
+    \begin{equation}
+        \alpha (\ket{v} \otimes \ket{w}) 
+            = (\alpha \ket{0}) \otimes \ket{w} 
+            = \ket{v} \otimes (\alpha \ket{w})
+    \end{equation}
+
+    \item $\forall \ket{v_1}, \ket{v_2} \in V \land \ket{w} \in W:$
+    \begin{equation}
+        (\ket{v_1} + \ket{v_2}) \otimes \ket{w} 
+            = \ket{v_1} \otimes \ket{w} + \ket{v_2} \otimes \ket{w}
+    \end{equation}
+
+    \item $\forall \ket{v} \in V \land \ket{w_1}, \ket{w_2} \in W:$
+    \begin{equation}
+        \ket{v} \otimes (\ket{w_1} + \ket{w_2})
+            = \ket{v} \otimes \ket{w_1} + \ket{v} \otimes \ket{w_2}
+    \end{equation}
+\end{itemize}
+
+Vector notation using standard basis, e.g.
+\begin{align*}
+    \ket{v} &= v_1\ket{0} + v_2\ket{1} = \begin{pmatrix*}
+        v_1 \\ v_2
+    \end{pmatrix*} \\
+    \ket{w} &= w_1\ket{0} + w_2\ket{1} = \begin{pmatrix*}
+        w_1 \\ w_2
+    \end{pmatrix*} \\
+    \ket{v} \otimes \ket{w} &= (v_1\ket{0} + v_2\ket{1}) \otimes (w_1\ket{0} + w_2\ket{1}) \\
+    &= v_1 w_1 \ket{00} + v_1 w_2 \ket{01} + v_2 w_1 \ket{10} + v_2 w_2 \ket{11}
+\end{align*}
+
+Thus: 
+\begin{equation*}
+    \begin{pmatrix*}
+        v_1 \\ v_2
+    \end{pmatrix*} \otimes
+    \begin{pmatrix*}
+        w_1 \\ w_2
+    \end{pmatrix*} = 
+    \begin{pmatrix*}
+        v_1 w_1 \\ v_1 w_2 \\ v_2 w_1 \\ v_2 w_2
+    \end{pmatrix*}
+\end{equation*}
+
+
+Note: Not every element of $V \otimes W$ can be written in the form $\ket{v} \otimes \ket{w}$,
+for example the Bell state
+\begin{equation*}
+    \ket{\psi} = \frac{1}{\sqrt{2}} (\ket{00} + \ket{11}).
+\end{equation*}
+
+Assuming that $V$ and $W$ have an inner product $\braket{\cdot}{\cdot}$, define inner product
+on $V \otimes W$ by
+
+\begin{equation}
+    \braket{\sum_j \alpha_j \ket{v_j} \otimes \ket{w_j}}
+        {\sum_k \beta_k \ket{v_k} \otimes \ket{w_k}} :=
+    \sum_j \sum_k \alpha_j^* \beta_k \braket{v_j}{v_k}\cdot \braket{w_j}{w_k}
+\end{equation}
+
+
+Generalization to $n$ qubits: $2^n$ computational basis states
