@@ -92,7 +92,7 @@ these specify the point defined as
 \begin{equation*}
     \vec{r} = \begin{pmatrix}
         \cos{\varphi} \cdot \sin{\vartheta} \\
-        \sin{\varphi} \cdot \cos{\vartheta} \\
+        \sin{\varphi} \cdot \sin{\vartheta} \\
         \cos{\vartheta}
     \end{pmatrix}
 \end{equation*}
@@ -472,3 +472,193 @@ on $V \otimes W$ by
 
 
 Generalization to $n$ qubits: $2^n$ computational basis states
+\begin{equation*}
+    \{\underbrace{\ket{0, ..., 0}}_{\text{length $n$}}, \ket{0, ..., 0, 1}, ... \ket{1,...,1}\}
+\end{equation*}
+
+Thus: General n-qubit quantum state, also denoted as "quantum register", given by:
+
+\begin{equation}
+    \ket{\psi} = \sum_{x_0 = 0}^1 \sum_{x_1 = 0}^2 \cdots \sum_{x_{n-1}}^1 \alpha_{x_n-1,..., x_1, x_0}
+        \cdot \ket{x_{n-1},..., x_1 x_0}
+\end{equation}
+
+with $\alpha_x \in \mathbb{C}$ for all $x \in \{0, ..., 2^n - 1\}$, such that 
+$\norm{\psi}^2 = \sum_{x = 0}^{2^n - 1} \abs{\alpha_x}^2 = 1$ (normalization).
+
+$\leadsto$ In general \textit{"hard"} to simulate on classical computer (for large $n$) due to "curse of dimensionality". \\
+Vector space as tensor products: 
+$\underbrace{\mathbb{C}^2 \otimes \cdots \otimes \mathbb{C}^2}_{\text{$n$ times}} 
+= (\mathbb{C}^2)^{\otimes n} = \mathbb{C}^{(2^n)}$
+
+\subsection{Mutliple qubit gates}
+
+As for single qubits, an operation on multiple qubits is described by an unitary matrix $U$.
+For $n$ qubits: $U \in \mathbb{C}^{2^n \times 2^n}$
+\newpage
+%
+Example: \underline{controlled-NOT} gate (also CNOT): \\
+two qubits: {\color{orange}control} and target, target qubit gets flipped if {\color{orange}control} is 1: \\
+
+\begin{equation*}
+    \ket{{\color{orange}0}0} \mapsto \ket{00}, 
+    \quad \ket{{\color{orange}0}1} \mapsto \ket{01}, 
+    \quad \ket{{\color{orange}1}0} \mapsto \ket{11}, 
+    \quad \ket{{\color{orange}1}1} \mapsto \ket{11}
+\end{equation*}
+
+Can be expressed as
+\begin{equation}
+    \ket{a, b} \mapsto \ket{a, a \oplus b} \quad \forall a, b \in \{0, 1\}
+\end{equation}
+, where $\oplus$ is the addition modulo 2.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{chapters/res/cnot-circuit.png}
+    \caption{CNOT circuit notation}
+\end{figure}
+
+Matrix representation:
+
+\begin{equation}
+    U_{CNOT} = \begin{pmatrix*}
+        1 && 0 && 0 && 0 \\
+        0 && 1 && 0 && 0 \\
+        0 && 0 && \color{red} 0 && \color{red} 1 \\
+        0 && 0 && \color{red} 1 && \color{red} 0 \\
+    \end{pmatrix*}
+\end{equation},
+with the Pauli-X matrix $X = \begin{pmatrix*}
+        \color{red} 0 && \color{red} 1 \\
+        \color{red} 1 && \color{red} 0 \\
+\end{pmatrix*}$.
+ 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{chapters/res/cnot-alternative-circuit.png}
+    \caption{Alternative CNOT circuit notation}
+\end{figure}
+
+Can generalize Pauli-X to any unitary operator U acting on target qubit $\leadsto$ 
+\textbf{controlled-U gate}:
+
+\begin{equation*}
+    \ket{{\color{orange}0}0} \mapsto \ket{00}, 
+    \quad \ket{{\color{orange}0}1} \mapsto \ket{01}, 
+    \quad \ket{{\color{orange}1}0} \mapsto \ket{1} {\color{blue} \otimes} (U\ket{0}), 
+    \quad \ket{{\color{orange}1}1} \mapsto \ket{1} {\color{blue} \otimes} (U\ket{1})
+\end{equation*}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{chapters/res/contolled-u-gate-circuit.png}
+    \caption{Controlled-U gate}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{chapters/res/controlled-z-gate-circuit.png}
+    \caption{Example: Controlled-Z gate}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{chapters/res/controlled-u-multiple-targets.png}
+    \caption{Controlled-U for multiple target qubits}
+\end{figure}
+
+Note: Single qubit and CNOT gates are \underline{universal}: They can be used to implement an 
+arbitraty unitray operation on $n$ qubits (Quantum analogue of univerisity of classical NAND gate).
+Proof in Nielsen and Chuang section 4.5.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{chapters/res/example-qubit-single-qubit-gates-cnot.png}
+    \caption{Example of a circuit lousisting only of single qubit gates and CNOTs}
+\end{figure}
+
+\subsubsection{Matrix Kronecker Products}
+Matrix representation of single qubit gates acting in parallel:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{chapters/res/parallel-circuit.png}
+\end{figure}
+
+Operation on basis states: $a, b \in \{0, 1\}$:
+\begin{equation}
+    \ket{a, b} \mapsto (A\ket{a}) \otimes (B\ket{b})
+\end{equation}
+
+Example: $A = I$ (identity), $B = Y$
+\begin{align*}
+    \ket{00} &\mapsto \ket{0} \otimes (Y\ket{0}) = {\color{purple}i}\ket{01} \\
+    \ket{01} &\mapsto \ket{0} \otimes (Y\ket{1}) = {\color{green}-i} \ket{00} \\
+    \ket{10} &\mapsto \ket{1} \otimes (Y\ket{0}) = i \ket{11} \\
+    \ket{11} &\mapsto \ket{1} \otimes (Y\ket{1}) = -i \ket{10}
+\end{align*}
+
+Matrix representation:
+\begin{equation*}
+    \begin{pmatrix*}
+        0 && \color{green} -i && 0 && 0 \\
+        \color{purple} i && 0 && 0 && 0 \\
+        0 && 0 && 0 && -i \\
+        0 && 0 && i && 0 \\
+    \end{pmatrix*} =
+    \begin{pmatrix*}
+        Y && 0 \\
+        0 && Y
+    \end{pmatrix*} = 
+    I \otimes Y
+\end{equation*}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{chapters/res/parallel-circuit-i-y.png}
+    \caption{Circuit notation}
+\end{figure}
+
+General formula: \underline{Kronecker product} (matrix representation of tensor products of operators)
+
+\begin{equation}
+    A \otimes B = \begin{pmatrix*}
+        a_{11} B && a_{12} B && \cdots && a_{1n} B \\
+        a_{21} B && a_{22} B && \cdots && a_{2n} B \\
+        \vdots && \vdots && \ddots && \vdots \\
+        a_{m1} B && a_{m2} B && \cdots && a_{mn} B \\
+    \end{pmatrix*} \in
+    \mathbb{C}^{mp \times nq} 
+\end{equation}
+
+for all $ A \in \mathbb{C}^{m \times n}$ and $B \in \mathbb{C}^{p \times q}$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.48]{chapters/res/kronecker-another-example.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.48]{chapters/res/kronecker-generlization-3-tensors.png}
+    \caption{Generalization to arbitrary number of tensor factors possible}
+\end{figure}
+
+Basic properties:
+\begin{enumerate}
+    \item $(A \otimes B)^* = A^* \otimes B^*$ (elementwise complex conjugation)
+    \item $(A \otimes B)^T = A^T \otimes B^T$ (transposition)
+    \item $(A \otimes B)^\dag = A^\dag \otimes B^\dag$
+    \item $(A \otimes B) \otimes C = A \otimes (B \otimes C)$ (associative property)
+    \item $(A \otimes B) \cdot (C \otimes D) 
+        = (A \cdot C) \otimes (B \cdot D)$ (for matrix of compatible dimensions)
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.48]{chapters/res/kronecker-properties.png}
+        \end{figure}
+    \item Kronecker product of Hermitian matrices is Hermitian.
+    \item Kronecker product of unitary matrices is unitary (follows from 3. and 5.)
+\end{enumerate}
+
+\section{Quantum measurement}
