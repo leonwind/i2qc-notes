@@ -491,7 +491,7 @@ Vector space as tensor products:
 $\underbrace{\mathbb{C}^2 \otimes \cdots \otimes \mathbb{C}^2}_{\text{$n$ times}} 
 = (\mathbb{C}^2)^{\otimes n} = \mathbb{C}^{(2^n)}$
 
-\subsection{Mutliple qubit gates}
+\subsection{Multiple qubit gates}
 
 As for single qubits, an operation on multiple qubits is described by an unitary matrix $U$.
 For $n$ qubits: $U \in \mathbb{C}^{2^n \times 2^n}$
@@ -641,7 +641,7 @@ for all $ A \in \mathbb{C}^{m \times n}$ and $B \in \mathbb{C}^{p \times q}$.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.48]{chapters/res/kronecker-generlization-3-tensors.png}
+    \includegraphics[scale=0.5]{chapters/res/kronecker-generlization-3-tensors.png}
     \caption{Generalization to arbitrary number of tensor factors possible}
 \end{figure}
 
@@ -655,10 +655,97 @@ Basic properties:
         = (A \cdot C) \otimes (B \cdot D)$ (for matrix of compatible dimensions)
         \begin{figure}[H]
             \centering
-            \includegraphics[scale=0.48]{chapters/res/kronecker-properties.png}
+            \includegraphics[scale=0.5]{chapters/res/kronecker-properties.png}
         \end{figure}
     \item Kronecker product of Hermitian matrices is Hermitian.
     \item Kronecker product of unitary matrices is unitary (follows from 3. and 5.)
 \end{enumerate}
 
-\section{Quantum measurement}
+\subsection{Quantum measurement}
+Review: measurement of a single qubit $\ket{\psi} = \alpha\ket{0} + \beta{\ket{1}}$ with
+resepct to the computational basis $\{\ket{0}, \ket{1}\}$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{chapters/res/quantum-measurement.png}
+\end{figure}
+
+Linear algebra: Can switch to a different (orthonormal) basis to represent a qubit, e.g.
+\begin{align*}
+    \ket{+} &= \frac{\ket{0} + \ket{1}}{\sqrt{2}} = \frac{1}{\sqrt{2}} \begin{pmatrix*}1 \\ 1\end{pmatrix*} \\
+    \ket{-} &= \frac{\ket{0} - \ket{1}}{\sqrt{2}} = \frac{1}{\sqrt{2}} \begin{pmatrix*}1 \\ -1\end{pmatrix*}
+\end{align*}
+
+Representation of $\ket{\psi}$ w.r.t $\{\ket{+}, \ket{-}\}$ basis:
+\begin{equation*}
+    \alpha \ket{0} + \beta \ket{1} 
+        = \alpha \frac{\ket{+} + \ket{-}}{\sqrt{2}} + \beta \frac{\ket{+} - \ket{-}}{\sqrt{2}}
+        = \frac{\alpha + \beta}{\sqrt{2}} \ket{+} + \frac{\alpha - \beta}{\sqrt{2}} \ket{-}
+\end{equation*}
+
+Can perform measurement with resepct to orthonormal basis $\{\ket{+}, \ket{-}\}$, will obtain result
+\begin{align*}
+    + \quad &\text{with probability} \quad \frac{\abs{\alpha + \beta}^2}{2} \\
+    - \quad &\text{with probability} \quad \frac{\abs{\alpha - \beta}^2}{2}
+\end{align*}
+
+Wavefunction collapse: immediately after the measurement, qubit will be in the state $\ket{+}$ if 
+measured "+", likewise in the state $\ket{-}$ if measured "-".
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{chapters/res/measurement-collapse-basis.png}
+\end{figure}
+
+In general given an orthonormal basis $\{\ket{u_1}, \ket{u_2}\}$,
+one can represent a qubit as $\ket{\psi} = \alpha_1 \ket{u_1} + \alpha_2 \ket{u_1}$
+and measure with respect to this orthonormal basis;
+will obtain measurement result $u_1$ or $u_2$ with respective probabilities $\abs{\alpha_1}^2$
+and $\abs{\alpha_2}^2$.
+
+\subsubsection{Abstract general definition of quantum measurements}
+Quantum measurements are described by a collection $\{M_m\}$ of 
+\underline{measurement} \underline{operators} acting on the quantum system, with the index $m$ labelling possible 
+measurement outcomes. \\
+Denoting the quantum state before measurement $\ket{\psi}$, result $m$ occurs with probability
+\begin{equation}
+    p(m) = \braketmatrix{\psi}{M_m^\dag M_m}{\psi} = \norm{M_m \ket{\psi}}^2
+\end{equation}
+, state after measurement is:
+\begin{equation}
+    \frac{M_m \ket{\psi}}{\norm{M_m \ket{\psi}}}
+\end{equation}
+
+The measurement operators satisfy the completeness relation
+
+\begin{equation}
+    \sum_m M_m^\dag M_m = I
+\end{equation}
+
+such that probabilities sum to 1:
+
+\begin{equation}
+    \sum_m p(m) 
+        = \sum_m \braketmatrix{\psi}{M_m^\dag M_m}{\psi} 
+        = \braketmatrix{\psi}{\sum_m M_m^\dag M_m}{\psi} \braket{\psi}{\psi} 
+        = 1
+\end{equation}
+since $\sum_m M_m^\dag M_m = I$. \\
+\newline
+%
+Example: measurement of a qubit $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$
+with respect to computational basis $\{\ket{0}, \ket{\psi}\}$.
+
+\begin{align*}
+    M_0 &:= \ket{0} \bra{0} = \begin{pmatrix*}1 \\ 0\end{pmatrix*} (1, 0) = \begin{pmatrix*}
+        1 && 0 \\ 0 && 0
+    \end{pmatrix*} \\
+    %
+    M_1 &:= \ket{1} \bra{1} = \begin{pmatrix*}0 \\ 1\end{pmatrix*} (0, 1) = \begin{pmatrix*}
+        0 && 0 \\ 0 && 1
+    \end{pmatrix*} \\
+    \leadsto p(0) &= \braketmatrix{\psi}{M_0^\dag M_0}{\psi} = \braketmatrix{\psi}{M_0}{\psi} = \abs{\alpha}^2 \\
+    p(1) &= \braketmatrix{\psi}{M_1^\dag M_1}{\psi} = \braketmatrix{\psi}{M_1}{\psi} = \abs{\beta}^2 \\
+\end{align*}
+
+\subsubsection{Projective Measurements}
