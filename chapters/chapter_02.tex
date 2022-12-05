@@ -749,3 +749,62 @@ with respect to computational basis $\{\ket{0}, \ket{\psi}\}$.
 \end{align*}
 
 \subsubsection{Projective Measurements}
+Projector onto subspace $V$ with orthonormal basis $\{\ket{u_1}, ..., \ket{u_m}\}$:
+\begin{align}
+    P &= \sum_{j = 1}^m \ket{u_j} \bra{u_j} \\
+    P \ket{w} &= \sum_{j = 1}^m \underbrace{\braket{u_j}{w}}_{\text{inner product}}
+\end{align}
+
+Relation to spectral decomposition of a normal matrix $A \in \mathbb{C}^{n \times n}$:
+
+\begin{align}
+    A &= U \begin{pmatrix*}
+        \lambda_1 & & \\
+        & \ddots & \\
+        & & \lambda_n
+    \end{pmatrix*} U^\dag
+    = \sum_{j = 1}^n \lambda_j \ket{u_j} \bra{u_j} \\
+    &= \sum_{k = 1}^m \widetilde{\lambda_k} P_k \quad 
+    \text{with } \{\widetilde{\lambda_1} ... \widetilde{\lambda_m} \} \text{ the distinct eigenvalues}
+\end{align}
+
+Definition:
+A \underline{projective measurement} is described by an \underline{observable} $M$, 
+a Hermitian operator acting on the quantum system.
+Spectal decomposition:
+
+\begin{equation}
+    M = \sum_m \lambda_m P_m
+\end{equation}
+
+with $P_m$: projection onto eigenspace with eigenvalue $\lambda_m$.
+The possible outcomes of the measurement correspond to the eigenvalues $\lambda_m$. \\
+Probability of getting result $\lambda_m$ when measuring a quantum state $\ket{\psi}$:
+\begin{equation}
+    p(\lambda_m) = \braketmatrix{\psi}{P_m}{\psi}
+\end{equation}
+
+State of the quantum system directly after the measurement:
+
+\begin{equation}
+    \frac{P_m \ket{\psi}}{\norm{P_m \ket{\psi}}} = \frac{P_m \ket{\psi}}{\sqrt{p(\lambda_m)}}
+\end{equation}
+
+Remarks:
+\begin{itemize}
+    \item Projective measurements are special cases of general measurement framework
+    \item Projective measurements combined with unitary transformations are equivalent to general
+    measurement framework, see pages 94, 95 in Nielsen and Chuang.
+\end{itemize}
+
+Average value of a projective measurement:
+\begin{align}
+    \mathbb{E}[M] &= \sum_m \lambda_m p(\lambda_m) = \sum_m \lambda_m \braketmatrix{\psi}{P_m}{\psi} \\
+    &= \braketmatrix{\psi}{\sum_m \lambda_m P_m}{\psi} = \braketmatrix{\psi}{M}{\psi} = \langle M \rangle
+\end{align}
+
+Corresponding \underline{standard deviation}:
+\begin{equation}
+   \Delta(M) := \sqrt{\langle M^2 \rangle - \langle M \rangle^2} 
+        = \sqrt{\langle (M - \langle M \rangle)^2 \rangle}
+\end{equation}
