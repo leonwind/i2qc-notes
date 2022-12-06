@@ -808,3 +808,29 @@ Corresponding \underline{standard deviation}:
    \Delta(M) := \sqrt{\langle M^2 \rangle - \langle M \rangle^2} 
         = \sqrt{\langle (M - \langle M \rangle)^2 \rangle}
 \end{equation}
+
+Examples:
+\begin{itemize}
+    \item Measuring a qubit w.r.t computational basis $\{ \ket{0}, \ket{1} \}$ is actually a projective measurement.
+    \item In general: Measurement w.r.t orthonormal basis $\{\ket{u_1}, \ket{u_2}\}$ is a projective measurement: Set 
+        \begin{equation*}
+            P_m = \ket{u_m} \bra{u_m} \quad \text{for } m = 1, 2 
+        \end{equation*}
+        Define observable $M$ by 
+        \begin{equation*}
+            M := \sum_{m=1}^2 \lambda_m P_m \quad \text{with arbitrary } 
+                \lambda_1, \lambda_2 \in \mathbb{R}; \lambda_1 \neq \lambda_2
+        \end{equation*}
+    \item Measuring Pauli-Z
+    \begin{equation*}
+        Z =  1 \cdot \underbrace{\begin{pmatrix*}
+            1 && 0 \\
+            0 && 0
+        \end{pmatrix*}}_{P_1} + (-1) \cdot \underbrace{\begin{pmatrix*}
+            0 && 0 \\
+            0 && 1
+        \end{pmatrix*}}_{P_2}
+    \end{equation*}
+    agrees with standard measurement w.r.t computational basis $\{ \ket{0}, \ket{1} \}$
+\end{itemize}
+
