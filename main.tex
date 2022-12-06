@@ -26,6 +26,7 @@
 \DeclarePairedDelimiter\ket{\lvert}{\rangle}
 \DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1 \delimsize\vert #2}
 \newcommand{\braketmatrix}[3]{\left \langle #1 \middle| #2 \middle| #3 \right \rangle}
+\newcommand{\observable}[1]{\langle #1 \rangle}
 
 \newtheorem{thm}{Theorem}
 \newtheorem{definition}[thm]{Definition}
@@ -38,7 +39,7 @@
 
 \maketitle
 
-\include{chapters/chapter_02.tex}
-\include{chapters/chapter_03.tex}
+\include{chapters/chapter_02_basic_concepts.tex}
+\include{chapters/chapter_03_entanglement.tex}
 
 \end{document}

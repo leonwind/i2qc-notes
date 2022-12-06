@@ -834,3 +834,49 @@ Examples:
     agrees with standard measurement w.r.t computational basis $\{ \ket{0}, \ket{1} \}$
 \end{itemize}
 
+
+\subsection{The Heisenberg uncertainty principle}
+
+Suppose $A$ and $B$ are Hermitian operators, and $\ket{\psi}$ a quantum state.
+Write 
+\begin{equation}
+    \braketmatrix{\psi}{AB}{\psi} = x + iy, \quad x, y \in \mathbb{R}
+\end{equation}
+
+\begin{equation}
+     \braketmatrix{\psi}{AB}{\psi}^* 
+        = \braketmatrix{\psi}{(AB)^\dag}{\psi} 
+        = \braketmatrix{\psi}{B^\dag A^\dag}{\psi}
+        = \braketmatrix{\psi}{BA}{\psi}
+\end{equation}
+
+Thus
+
+\begin{equation}
+    \braketmatrix{\psi}{[A, B]}{\psi} = 2iy \quad \text{and} \quad  \braketmatrix{\psi}{\{A, B \}}{\psi} = 2x
+\end{equation}
+
+where $\{A, B \} := AB + BA$ is the \underline{anti-Commutator}.
+
+\begin{equation}\label{eq:star}
+    \abs{\braketmatrix{\psi}{[A, B]}{\psi}}^2 +  \abs{\braketmatrix{\psi}{\{A, B\}}{\psi}}^2
+        = 4  \cdot \underbrace{\abs{\braketmatrix{\psi}{AB}{\psi}}^2}_{x^2 + y^2}
+\end{equation}
+
+Cauchy-Schwarz inequality applied to $\ket{v} = A \ket{\psi}, \ket{w} = B \ket{\psi}$:
+
+\begin{equation}
+    \abs{\braketmatrix{\psi}{[A, B]}{\psi}}^2 
+        \stackrel{\eqref{eq:star}}{\leq} 4 \cdot \abs{\braketmatrix{\psi}{AB}{\psi}}^2 
+        \leq  4 \cdot \braketmatrix{\psi}{A^2}{\psi} \cdot \braketmatrix{\psi}{B^2}{\psi}
+\end{equation}
+
+Suppose $C$ and $D$ are two observables: substitute $A = C - \observable{C}$ and 
+$B = D - \observable{D}$ leads to Heisenberg uncertainty principle:
+
+\begin{equation}
+    \Delta(C) \cdot \Delta(D) \geq \frac{\abs{\braketmatrix{\psi}{[C, D]}{\psi}}}{2}
+\end{equation}
+
+Interpretation for experiments: Repeated preparation of $\ket{\psi}$, measure $C$ in some cases, $D$ in other
+cases to obtain standard deviations $\Delta{C}$ and $\Delta(D)$. 
