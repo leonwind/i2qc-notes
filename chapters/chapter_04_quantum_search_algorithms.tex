@@ -1,15 +1,25 @@
-\section{Quantum Algorithnms}
+\section{Quantum Search Algorithnms}
+Classical search algorithm through $N$ unordered elements $\mathcal{O}(N)$. \\
+Quantum Grover's algorithm: $\mathcal{O}(\sqrt{N})$ (given certain predictions).
 
-\todo{add start of lecture 14/12}
-
+\subsection{Quantum Oracles}
+Search space of $N = 2^n$ elements, labelled $0, 1, ..., N - 1$.
+Assume there are $M$ solutions (with $1 \leq M \leq N$). \\
+Define corresponding indictor function $f : \{0, ..., N - 1\} \mapsto \{0, 1\}$
+by 
+\begin{equation}
+    f(x) = \begin{cases}
+        0, \quad \text{if element $x$ is not a solution} \\
+        1, \quad \text{if element $x$ is a solution}
+    \end{cases}
+\end{equation}
 
 Quantum version of $f$?
 $\leadsto$ Quantum "oracle" $U_f$ defined for computational basis states as
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{chapters/res/alice-bob-charlie-mountain.png}
-    \caption{\todo{Add quantum circuit representation of $U_f$}}
+    \includegraphics[scale=0.5]{chapters/res/quantum-circuit-oracle.png}
 \end{figure}
 
 Note: $U_f$ maps basis states to basis states and satisfies 
@@ -17,8 +27,7 @@ Note: $U_f$ maps basis states to basis states and satisfies
 U_f^2 = I \quad (\text{since } q \oplus f(x) \oplus f(x) = q)
 \end{equation}
 
-Thus $U_f$ permutes basis states and is in particular unitary. \\
-\newline
+Thus $U_f$ permutes basis states and is in particular unitary.
 
 Initialize oracle qubit in superposition $\ket{-} = \frac{1}{\sqrt{2}}(\ket{0} - \ket{1})$, 
 then 
@@ -45,8 +54,8 @@ $\leadsto$ Effective action of oracle
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{chapters/res/alice-bob-charlie-mountain.png}
-    \caption{\todo{Add Quantum oracle solution diagram}}
+    \includegraphics[scale=0.5]{chapters/res/effective-action-oracle.png}
+    \caption{Oracle "marks" solution by a phase flip.}
 \end{figure}
 
 
@@ -64,17 +73,19 @@ Search space with $N = 2^n$ elements, $M$ solutions.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{chapters/res/alice-bob-charlie-mountain.png}
-    \caption{\todo{Add Grovers algorithm quantum circuit}}
+    \includegraphics[scale=0.4]{chapters/res/groovers-algorithm.png}
 \end{figure}
 
 Initial Hadamard transform: \\
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{chapters/res/alice-bob-charlie-mountain.png}
-    \caption{\todo{Add initial hadamard circuit}}
+    \includegraphics[scale=0.5]{chapters/res/initial-hadamard-transform.png}
 \end{figure}
+Note: For $x \in \{0, 1\}$:
+\begin{equation}
+    H \ket{x} = \frac{1}{\sqrt{2}} \sum_{z = 0}^1 (-1)^{z x} \ket{z} 
+\end{equation}
 
 Applied to several qubits:
 
@@ -88,15 +99,14 @@ Applied to several qubits:
 
 In particular: 
 \begin{equation}
-    H^{\otimes n} \ket{0, ..., 0} = \frac{1}{\sqrt{N}} \sum_{z = 0}^{N} \ket{z} =: \color{green} \statepsi
+    H^{\otimes n} \ket{0, ..., 0} = \frac{1}{\sqrt{N}} \sum_{z = 0}^{N} \ket{z} =: {\color{green} \statepsi \text{ equal superposition state}}
 \end{equation}
 
 Definition of Grover operator G:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{chapters/res/alice-bob-charlie-mountain.png}
-    \caption{\todo{Add Grover operator circuit}}
+    \includegraphics[scale=0.4]{chapters/res/grover-operation-circuit.png}
 \end{figure}
 
 In summary 
@@ -105,14 +115,12 @@ In summary
 \end{equation}
 
 
-\underline{Geometric interpretation}
+\underline{Geometric interpretation:}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{chapters/res/alice-bob-charlie-mountain.png}
-    \caption{\todo{Add grover geometric representation}}
+    \includegraphics[scale=0.5]{chapters/res/grover-geometric-representation.png}
 \end{figure}
-
 
 Define 
 \begin{equation}
@@ -127,15 +135,15 @@ Define
 Angle $\vartheta$ defined by $\sin \frac{\vartheta}{2} = \sqrt{\frac{N}{M}}$
 such that $\statepsi = \cos \frac{\vartheta}{2} \ket{\alpha} + \sin \frac{\vartheta}{2} \ket{\beta}$
 
-Note: By definition $U_f \ket{a} = \alpha$, $U_f \ket{\beta} = -\ket{\beta}$ \\
+
+Note: By definition $U_f \ket{a} = \alpha$, $U_f \ket{\beta} = -\ket{\beta}$ 
 $\leadsto U_f$ is a reflection about $\ket{\alpha}$ within subspace spanned by $\ket{\alpha}$ and $\ket{\beta}$ \\
 
-Likewise $2 \statepsi \bra{\psi} - I$ is a reflection about $\statepsi$
+Likewise $2 \statepsi \bra{\psi} - I$ is a reflection about $\statepsi$:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{chapters/res/alice-bob-charlie-mountain.png}
-    \caption{\todo{Add $\psi$ reflection diagram}}
+    \includegraphics[scale=0.5]{chapters/res/psi-reflection-diagram.png}
 \end{figure}
 
 Since $\statepsi$ is part of subspace spanned by $\ket{\alpha}$ and $\ket{\beta}$, 
