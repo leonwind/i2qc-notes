@@ -154,3 +154,73 @@ $\vartheta$
     \ket{\phi} &= \cos{\varphi} \ket{\alpha} + \cos{\varphi} \ket{\beta} \\
     \leadsto G \ket{\phi} &= \cos{(\varphi + \vartheta)} \ket{\alpha} + \cos{(\varphi + \vartheta)} \ket{\beta}
 \end{align}
+
+
+For $k$ applicants of $G$:
+\begin{equation}
+    G^k \ket{\phi} = \cos{(\phi + k \cdot \vartheta)} \ket{\alpha} 
+        + \sin{(\phi + k \cdot \vartheta)} \ket{\beta}
+\end{equation}
+
+For initial state $\statepsi$: $\psi = \frac{\vartheta}{2}$
+\begin{equation}
+    G^k \ket{\phi} = \cos{((k + \frac{1}{2}) \vartheta)} \ket{\alpha} 
+        + \sin{((k + \frac{1}{2}) \vartheta)} \ket{\beta}
+\end{equation}
+
+Goal: Rotate to $\ket{\beta}$, i.e. $(k + \frac{1}{2}) \vartheta \stackrel{!}{=} \frac{\pi}{2}$
+
+since $\sin{\frac{\vartheta}{2}} = \sqrt{\frac{M}{N}}$ for $M \ll N \quad \vartheta \approx 2 \sqrt{\frac{M}{N}}$
+
+Thus need $\mathcal{O}(\sqrt{\frac{M}{N}})$ rotations 
+($k \cdot \vartheta$ should be $\mathcal{O}(1), k \approx \frac{1}{\vartheta}$).
+
+Final step: standard measurement will collapse quantum state (with high probability)
+to a basis state forming $\ket{\beta}$, i.e. a solution!
+
+
+\subsection{Optimality of the search algorithm}
+
+Goal: Show that any quantum search algorithm needs $\Omega(\sqrt{N})$ oracle calls
+$\leadsto \mathcal{O}(\sqrt{N})$ is already optimal.
+
+For simplicity: Single solution $x$
+Recall that oracle flips sign of solutions:
+$O_x = I - 2 \ket{x}\bra{x} \quad $ (denoted $U_f$ in previous section) \\
+Most general form of algorithm: Oracle calls interleaved with unitary $U_1, U_2, ...$ \\
+
+State after $k$ steps:
+\begin{equation}
+    \ket{\psi_k^\star} = U_k O_x U_{k-1} O_x \cdots U_1 O_x \ket{\psi_0}
+\end{equation}
+
+We also define
+
+\begin{equation}
+    \ket{\psi_k} = U_k U_{k-1} \cdots U_1 \ket{\psi_0}
+\end{equation}
+
+Strategy of proof: Upper bound of 
+\begin{equation}
+    D_k := \sum_{x = 0}^{N - 1} || \underbrace{\ket{\psi_k^\star}}_{\text{Case that $x$ is a solution}} 
+    - \ket{\psi_k} ||^2
+\end{equation}
+
+$D_k$ grows as $\mathcal{O}(k^2)$, but must be $\Omega(N)$ to distinguish between $N$ alternatives.
+
+
+First show that $D_k \leq 4 k^2$ by induction:
+
+$k = 0 \leadsto D_0= 0$ {\color{green} $\checkmark$}
+
+$k \mapsto k + 1$:
+
+\begin{align*}
+    D_{k + 1} &= \sum_x || O_x \ket{\psi_k^\star} - \ket{\psi_k} ||^2 \\
+    &= \dots
+\end{align*}
+
+Rest of proof in the official script on Moodle.
+
+In summary: $\underbrace{D_k \leq 4 \cdot k^2 \quad \text{and} \quad D_k \geq c \cdot N}
+    _{k \geq \sqrt{\frac{cN}{4}} \leadsto \text{Number of oracle evaluations}}$
