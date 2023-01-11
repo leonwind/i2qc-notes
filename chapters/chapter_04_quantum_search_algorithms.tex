@@ -224,3 +224,9 @@ Rest of proof in the official script on Moodle.
 
 In summary: $\underbrace{D_k \leq 4 \cdot k^2 \quad \text{and} \quad D_k \geq c \cdot N}
     _{k \geq \sqrt{\frac{cN}{4}} \leadsto \text{Number of oracle evaluations}}$
+
+
+Thought experiment: If it was possible to search using $\mathcal{O}(log(n))$ oracle
+calls, then a QC could solve NP-complete problems efficiently: 
+Just search through $2^w(n)$ witnesses using $w(n)$ oracle calls where $w(n)$ is 
+the bit length of a witness.

@@ -1,0 +1,114 @@
+\section{The Density Operator}
+So far: State vector $\statepsi$ describing a quantum state.
+Convenient alternative formulation for quantum systems about which we 
+only have partial information: \\
+\underline{Density operator} (also called density matrix)
+
+\subsection{Ensembles of quantum states}
+Consider a quantum system which is in one of several states $\ket{\psi_i}$
+with probability $p_i$: \underline{Ensemble} of quantum states
+$\{p_i, \ket{\psi_i} \}$ \\
+The \underline{density operator} $\rho$ of the ensemble $\{p_i, \ket{\psi_i} \}$
+is defined as 
+
+\begin{equation}
+    \rho = \sum_i p_i \ket{\psi_i} \bra{\psi_i}
+\end{equation}
+
+Quantum mechanics in terms of the density operators:
+\begin{itemize}
+    \item Unitary operation: a unitary transformation $U$ maps each
+    $\ket{\psi_i} \mapsto U \ket{\psi_i}$, and the ensemble to  $\{p_i, U \ket{\psi_i} \}$.
+    Thus the density operator is transformed as 
+    \begin{equation}
+        \rho \stackrel{U}{\mapsto} \sum_i p_i U \ket{\psi_i} 
+            \underbrace{\bra{\psi_i} U^\dag}_{(U\ket{\psi_i})^\dag} 
+        = U \underbrace{(\sum_i p_i \ket{\psi_i} \bra{\psi_i})}_{\rho} U^\dag 
+        = U \rho U^\dag
+    \end{equation}
+
+    \item Measurements: measurement operators $\{M_m\}$, if the system is in state
+    $\ket{\psi_i}$, then the probability for result $m$, given $i$, is 
+    \begin{equation}
+        p(m|i) = \braketmatrix{\psi_i}{M_m^\dag M_m}{\psi_i} = 
+            tr \left[ M_m^\dag M_m \ket{\psi_i} \bra{\psi_i} \right]
+    \end{equation}
+    Thus overall probability for result m is:
+    \begin{align}
+        p(m) &= \sum_i p(m|i) p_i = 
+            \sum_i tr \left[ M_m^\dag M_m \ket{\psi_i} \bra{\psi_i} \right] p_i \\
+            &= tr [ M_m^\dag M_m \underbrace{\sum_i p_i \ket{\psi_i} \bra{\psi_i}}_{\rho}] 
+            = tr [M_m^\dag M_m \rho]
+    \end{align}
+
+    Density operator $\rho_m$ after obtaining measurement result $m$? \\
+    State $i$ collapses to 
+    \begin{equation}
+    \ket{\psi_i} \mapsto \frac{M_m \ket{\psi_i}}{|| M_m \ket{\psi_i}||} =: \ket{\psi_i^m}
+    \end{equation}
+    Thus:
+    
+    \begin{align}
+        \rho_m &= \sum_i p(i|m) \ket{\psi_i^m} \bra{\psi_i^m} 
+            = \sum_i p(i|m) \frac{M_m \ket{\psi_i} \bra{\psi_i^m} M_m^\dag}
+            {\underbrace{|| M_m \ket{\psi_i}||^2}_{p(m|i)}} \\
+            &\stackrel{\text{Bayes Theorem}}{=} \sum_i p_i \frac{M_m \ket{\psi_i} \bra{\psi_i} M_m}{p(m)}
+            = \frac{M_m \rho M_m^\dag}{tr[M_m^\dag M_m \rho]}
+    \end{align}
+
+    Note that $\rho_m$ is now expressed in terms of $\rho$ and the measurement
+    operators, without explicit reference to the ensemble $\{p_i, \ket{\psi_i} \}$.
+\end{itemize}
+
+\subsection{General properties of the density operator}
+
+Characterization of density operators: An operator $\rho$ is the
+density matrix associated to some ensemble $\{p_i, \ket{\psi_i} \}$ if and only if:
+\begin{enumerate}
+    \item $tr[\rho] = 1$ (\textit{trace condition})
+    \item $\rho$ is a positive operator (\textit{positivity condition})
+\end{enumerate}
+Remark: $\rho$ is called a \underline{positive operator} if it is Hermitian and all its
+eigenvalues are non-negative, equivalent 
+$\braketmatrix{\varphi}{\rho}{\varphi} \geq 0$ for all vectors $\ket{\varphi}$. 
+
+Proof is in the official lecture notes on Moodle. \\
+
+From now on, we define a density operator as positive operator $\rho$ with
+$tr[\rho] = 1$. \\
+Language regarding density operators: \\
+\begin{enumerate}
+    \item \underline{"Pure state"}: Quantum system in a state $\statepsi$, corresponding density 
+operator $\rho = \statepsi \bra{\psi}$ such that 
+\begin{equation}
+    tr[\rho^2] = tr[\ket{\psi} \underbrace{\braket{\psi}{\psi}}_{1} \bra{\psi}] 
+    = \braket{\psi}{\psi} = 1
+\end{equation}
+
+    \item \underline{"Mixed State"}: $\rho$ describing quantum setup cannot be written 
+    as $\rho = \statepsi \bra{\psi}$; Intutition: Ensemble $\{p_i, \ket{\psi_i} \}$ of 
+    $\rho$, all the probabilities are strictly smaller than 1. 
+    Then $tr[\rho^2] = \sum_i p_i^2 < 1$.
+\end{enumerate}
+
+In general: Let $\rho$ be a density operator. Then  $tr[\rho^2] \leq 1$, 
+and $tr[\rho^2] = 1$ if and only if $\rho$ describes a pure quantum state. \\
+Proof: Denote the eigenvalues of $\rho$ by $\{\lambda_i \}$, then $- \leq \lambda_i \leq 1$
+since $\rho$ is positive and $1 = tr[\rho] = \sum_i \lambda_i$.
+Moreover, $tr[\rho^2] = \sum_i \lambda_i^2 \leq 1$, with "$=1$" precisely if one of the 
+eigenvalues is 1 and the others are 0. \\
+
+
+Ensemble representation is not unique! Example:
+\begin{equation*}
+    \rho = \frac{3}{4} \ket{0} \bra{0} + \frac{1}{4} \ket{1}\bra{1} 
+    = \frac{1}{2} \ket{a} \bra{a} + \frac{1}{2} \ket{b}\bra{b} = 
+\end{equation*}
+with 
+\begin{align*}
+    \ket{a} &= \sqrt{\frac{3}{4}} \ket{0} + \sqrt{\frac{1}{4}} \ket{1} \\
+    \ket{b} &= \sqrt{\frac{3}{4}} \ket{0} - \sqrt{\frac{1}{4}} \ket{1} \\
+\end{align*}
+
+(But note that $\ket{0}, \ket{1}$ are the (unique) eigenvectors of $\rho$, 
+and $\braket{a}{b} \neq 0$.)
