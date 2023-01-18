@@ -112,3 +112,121 @@ with
 
 (But note that $\ket{0}, \ket{1}$ are the (unique) eigenvectors of $\rho$, 
 and $\braket{a}{b} \neq 0$.)
+\newline
+
+For the following: Given an ensemble $\{ \rho_i, \ket{\psi_i} \}$, set
+$\ket{\widetilde{\psi}_i} = \sqrt{\rho_i} \ket{\psi_i}$ such that 
+$\rho = \sum_i \ket{\widetilde{\psi}_i} \bra{\widetilde{\psi}_i}$.
+Ensemble $\{ \ket{\widetilde{\psi}_i} \}$ \underline{generates} the density operator $\rho$.
+To relate an ensemble $\{ \ket{\widetilde{\psi}_i} \}_{i=1...m}$ to another
+$\{ \ket{\widetilde{\psi}_j} \}_{i=1...n}$, in case $m \neq n$, we "pad" one of the ensembles 
+with zero vectors, such that without loss of generality $m = n$.
+\newline
+
+Unitary freedom in the ensemble for density matrices: The sets
+$\{\ket{\widetilde{\psi}_i}\}$ and $\{\ket{\widetilde{\psi}_j}\}$ generate the same 
+density matrices if and only if 
+\begin{equation}
+    \ket{\widetilde{\psi}_i} = \sum_j u_{ij} \ket{\widetilde{\psi}_j}
+\end{equation}
+
+for some unitary matrix $u_{ij}$. \\
+Sketch of proof is on the official lecture notes in Moodle.
+\\
+
+The Bloch sphere picture for qubits can be generalized to mixed states by the representation
+
+\begin{equation}
+   \rho = \frac{I + \vec{r} \cdot \vec{\sigma}}{2} 
+\end{equation}
+
+with $\vec{r} \in \mathbb{R}^3$, $||\vec{r}|| \leq 1$, the Bloch vector of $\rho$ (see sheet 11).
+(Concidies with hitherto definition in case $\rho = \statepsi \bra{\psi}$) 
+
+
+\subsection{The Reduced Density Operator}
+
+\textbf{Definition (partial trace)}: Let $n_1, n_2 \in \mathbb{N}$. \\
+The \underline{partial trace} operations in terms of the conventional matrix trace by
+\begin{align}
+    tr_1 &: \mathbb{C}^{n_1 n_2 \times n_1 n_2} \mapsto \mathbb{C}^{n_2 \times n_2}, \quad
+    tr_1 [M_1 \otimes M_2] = tr[M_1] \cdot M_2 \\
+    tr_2 &: \mathbb{C}^{n_1 n_2 \times n_1 n_2} \mapsto \mathbb{C}^{n_1 \times n_1}, \quad
+    tr_1 [M_1 \otimes M_2] = tr[M_2] \cdot M_1
+\end{align}
+for all $M_1 \mathbb{C}^{n_1 \times n_1}$ and $M_2 \mathbb{C}^{n_2 \times n_2}$ together
+with linear extension. \\
+Linear extension for traces:
+\begin{equation*}
+    tr_1[\alpha M1 \otimes M_2 + \beta N_1 \otimes N_2] = 
+    \alpha \cdot tr_1 [M_1 \otimes M_2] + \beta \cdot tr_1[N_1 \otimes N_2]
+\end{equation*}
+
+Consider a composite quantum systems consisting of subsystem $A$ and $B$, for example: 
+$A$ system of $m$ qubits, $B$: system of $n$ qubits.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{chapters/res/density-operator-subsystems.png}
+\end{figure}
+
+Let the quantum system be described by a density operator $\rho^{AB}$. \\
+Define the \underline{reduced density operator} for system $A$ by 
+
+\begin{equation}
+    \rho^A = tr_B [\rho^{AB}]
+\end{equation}
+
+and analogously
+
+\begin{equation}
+    \rho^B = tr_A [\rho^{AB}]
+\end{equation}
+
+Examples:
+\begin{itemize}
+    \item For any quantum states $\ket{a_1}, \ket{a_2} \in A$ and $\ket{a_1}, \ket{a_2} \in A$:
+    \begin{equation}
+        tr_B [\ket{a_1} \bra{a_2} \otimes \ket{b_1}\bra{b_2}] =
+        \ket{a_1}\bra{a_2} \cdot tr[\ket{b_1}\bra{b_2}] = 
+        \ket{a_1}\bra{a_2} \cdot \underbrace{\observable{b_2 | b_1}}_{\in \mathbb{C}}
+    \end{equation}
+
+    \item Given a density matrix $\rho$ for a subsystem $A$ and $\sigma$ for subsystem $B$.
+    Suppose that the overall density matrix is 
+    \begin{equation}
+        \rho^{AB} = \rho \cdot \sigma
+    \end{equation}
+    Then 
+    \begin{align}
+        tr_B[\rho \cdot \sigma] &= \rho tr[\sigma] = \rho \\ 
+        tr_A[\rho \cdot \sigma] &= \sigma tr[\rho] = \sigma 
+    \end{align}
+
+    \item $\rho^{AB} = \statepsi \bra{\psi}$ with $\psi = \frac{1}{\sqrt{2}} (\ket{00} + \ket{11})$. 
+    Expanding $\rho^{AB}$ leads to
+
+    \begin{align*}
+        \rho^{AB} &= \frac{1}{\sqrt{2}} (\ket{00} + \ket{11}) (\bra{00} + \bra{11}) \\
+        &= \frac{1}{2} (\ket{00}\bra{00} + \ket{00}\bra{11} + \ket{11}\bra{00} + \ket{11}\bra{11}) \\
+    \end{align*}
+
+    \begin{align*}
+        \rho^A &= tr_B{\rho^{AB}} = ... = \frac{I}{2}
+    \end{align*}
+
+    Note: Composite System is in the "pure state" $\statepsi$, whereas the subsystem is described by the 
+    "mixed state" $\frac{I}{2}$
+    (Indeed a mixed state: $tr[(\frac{I}{2})^2] = \frac{1}{4} \cdot tr[I] = \frac{1}{2} < 1$)
+\end{itemize}
+
+Motivation / justification for partial trace:
+Let $M$ be any observable on subsystem $A$, then we want that $\rho^A$ yield the same statistics
+measuring $M$ as $\rho^{AB}$ for measuring $M \otimes I$. In particular
+
+\begin{equation}
+    \observable{M} = tr[M \cdot \rho^A] = tr[(M \otimes I) \rho^{AB}] = \observable{M \otimes I}
+\end{equation}
+
+for all density operators $\rho^{AB}$. The partial trace operation for computing 
+$\rho^A$ from $\rho^{AB}$ is the unique operation with this property.
